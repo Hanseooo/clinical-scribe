@@ -7,7 +7,7 @@
 
 ## What This Project Is
 
-A Next.js 14 web app converting clinical handover recordings or typed text into structured ISBAR/SBAR/ISOBAR documents using Gemini 2.5 Flash. Primary user: Philippine nursing students.
+A Next.js 16.2.2 web app converting clinical handover recordings or typed text into structured ISBAR/SBAR/ISOBAR documents using Gemini 2.5 Flash. Primary user: Philippine nursing students.
 
 Three input modalities: record audio, upload audio file, type/paste text.
 One output: structured markdown with safety highlights, exportable as MD or PDF.

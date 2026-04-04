@@ -4,7 +4,7 @@
 
 ## System Overview
 
-ClinicalScribe is a **stateless, single-page web application** built on Next.js 14 App Router. No database, no auth, no server-side state in v1. All processing is either client-side or handled by a single Next.js API route proxying to Gemini.
+ClinicalScribe is a **stateless, single-page web application** built on Next.js 16.2.2 App Router. No database, no auth, no server-side state in v1. All processing is either client-side or handled by a single Next.js API route proxying to Gemini.
 
 The architecture is **modality-agnostic after the input layer**. Audio and text inputs are normalised at the boundary (`inputAdapters.ts`) into a unified `ChainInput` type. Everything downstream — the LangChain chain, source panel, editor, export — operates on this unified type and does not branch on modality.
 

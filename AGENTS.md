@@ -164,3 +164,26 @@ What agents should do when a requested change touches structure or multiple file
 3. If a rule would be broken for a good reason, include a short justification in the change summary and add a TODO with a linked issue for later cleanup.
 
 Agents must treat these docs as authoritative project rules and reference them in their implementation reasoning when relevant.
+
+## Testing Guidance for Agents
+Agents should recommend and scaffold a modern, TypeScript-first test stack when creating tests for this repo. Recommended stack:
+
+- Unit tests: Vitest (`vitest`) with `jsdom` environment for React components.
+- Component testing: `@testing-library/react`, `@testing-library/jest-dom`, and `@testing-library/user-event`.
+- Network/AI mocks: Mock Service Worker (`msw`) to stub `/api/generate` and external LLM endpoints during tests.
+- E2E: Playwright (`@playwright/test`) for browser-level end-to-end flows.
+
+Minimal agent checklist when adding tests:
+
+1. Add `vitest.config.ts` with `jsdom` environment and a `test/setup.ts` that registers `@testing-library/jest-dom`.
+2. Prefer testing pure functions in `src/lib/` first — high signal, low flakiness.
+3. For components that interact with the API, use MSW to stub `POST /api/generate` responses; never call real AI APIs or use secrets.
+4. Keep tests focused: unit tests for `src/lib/`, component tests for `features/*` components, and integration tests for hooks like `useGeneration`.
+5. When scaffolding tests, update `package.json` scripts but avoid committing secrets or `.env` files.
+
+Reference example files added in the working tree:
+- `vitest.config.ts` — test config
+- `test/setup.ts` — test setup for `@testing-library/jest-dom` and MSW bootstrapping
+- example unit test: `src/lib/safety/patterns.test.ts`
+
+Agents must follow the repository's non-negotiable security rules when adding tests: do not read or commit `.env` files, never embed real API keys in test code, and use MSW fixtures for deterministic AI responses.

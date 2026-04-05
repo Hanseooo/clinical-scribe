@@ -1,11 +1,14 @@
+<img width="1900" height="865" alt="image" src="https://github.com/user-attachments/assets/d575478a-bdeb-42f1-8d93-3c1e85abebff" />
+
+
 # ClinicalScribe
 
-Structured clinical handover documentation for nursing students. Record a patient handover or paste your notes — get a clean, structured ISBAR document in seconds. Safety-critical values are automatically highlighted for review.
+Structured clinical handover documentation for nursing students. Record a patient handover or paste your notes to get a clean, structured ISBAR document in seconds. Safety-critical values are automatically highlighted for review.
 
 ## Features
 
 - **Three input modalities**: In-browser audio recording, audio file upload (drag-and-drop), or typed notes
-- **AI-powered structuring**: Gemini 2.5 Flash transcribes and organizes input into ISBAR, SBAR, or ISOBAR formats
+- **AI-powered structuring**: Transcribes and organizes input into ISBAR, SBAR, or ISOBAR formats
 - **Client-side audio conversion**: ffmpeg.wasm converts any audio to 16kHz mono .wav in a Web Worker (no server processing)
 - **Markdown editor**: Full-featured editor with Edit/Preview tabs powered by `@uiw/react-md-editor`
 - **Safety highlighting**: Numbers, units, time values, and `[VERIFY]` flags are automatically highlighted in the preview

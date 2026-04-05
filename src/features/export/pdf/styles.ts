@@ -1,0 +1,127 @@
+import { StyleSheet } from '@react-pdf/renderer'
+
+export const styles = StyleSheet.create({
+  page: {
+    padding: 48,
+    fontFamily: 'Times-Roman',
+    fontSize: 11,
+    lineHeight: 1.5,
+    color: '#111',
+  },
+  header: {
+    position: 'absolute',
+    top: 24,
+    left: 48,
+    right: 48,
+    fontSize: 8,
+    color: '#666',
+    borderBottomWidth: 0.5,
+    borderBottomColor: '#ccc',
+    paddingBottom: 6,
+  },
+  footer: {
+    position: 'absolute',
+    bottom: 24,
+    left: 48,
+    right: 48,
+    fontSize: 8,
+    color: '#666',
+    textAlign: 'center',
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 4,
+    textAlign: 'center',
+  },
+  meta: {
+    fontSize: 9,
+    color: '#555',
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  h1: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginTop: 16,
+    marginBottom: 8,
+  },
+  h2: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    marginTop: 12,
+    marginBottom: 6,
+  },
+  h3: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    marginTop: 8,
+    marginBottom: 4,
+  },
+  body: {
+    fontSize: 11,
+    marginBottom: 6,
+    lineHeight: 1.5,
+  },
+  list: {
+    marginLeft: 16,
+    marginBottom: 6,
+  },
+  listItem: {
+    fontSize: 11,
+    marginBottom: 3,
+    lineHeight: 1.4,
+  },
+  orderedItem: {
+    fontSize: 11,
+    marginBottom: 3,
+    lineHeight: 1.4,
+  },
+  blockquote: {
+    borderLeftWidth: 2,
+    borderLeftColor: '#999',
+    paddingLeft: 8,
+    marginVertical: 6,
+    fontSize: 10,
+    fontStyle: 'italic',
+    color: '#444',
+  },
+  hr: {
+    borderTopWidth: 0.5,
+    borderTopColor: '#999',
+    marginVertical: 10,
+  },
+  code: {
+    fontFamily: 'Courier',
+    fontSize: 10,
+    backgroundColor: '#f5f5f5',
+    padding: 2,
+  },
+  source: {
+    fontFamily: 'Courier',
+    fontSize: 10,
+    marginBottom: 16,
+    lineHeight: 1.4,
+    whiteSpace: 'pre-wrap',
+  },
+  verify: {
+    color: '#b91c1c',
+    fontWeight: 'bold',
+  },
+  disclaimer: {
+    marginTop: 20,
+    paddingTop: 8,
+    borderTopWidth: 1,
+    borderTopColor: '#ccc',
+    fontSize: 9,
+    fontStyle: 'italic',
+    color: '#666',
+    textAlign: 'center',
+  },
+  strong: {
+    fontWeight: 'bold',
+  },
+  emphasis: {
+    fontStyle: 'italic',
+  },
+})

@@ -27,6 +27,7 @@ export function AudioUploader({ onSubmit, isLoading }: AudioUploaderProps) {
   const [duration, setDuration] = useState<number | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [isConverting, setIsConverting] = useState(false)
+  const [convertStatus, setConvertStatus] = useState<string | null>(null)
   const [isDragging, setIsDragging] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -93,15 +94,20 @@ export function AudioUploader({ onSubmit, isLoading }: AudioUploaderProps) {
 
     setIsConverting(true)
     setError(null)
+    setConvertStatus('Loading audio converter…')
 
     try {
       const blob = new Blob([selectedFile], { type: selectedFile.type })
-      const base64 = await convertToWavBase64(blob)
+      const base64 = await convertToWavBase64(blob, (message) => {
+        setConvertStatus(message)
+      })
       onSubmit(base64)
-    } catch {
-      setError('Failed to convert audio. Please try again.')
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Unknown error'
+      setError(`Failed to convert audio: ${message}`)
     } finally {
       setIsConverting(false)
+      setConvertStatus(null)
     }
   }
 
@@ -128,6 +134,12 @@ export function AudioUploader({ onSubmit, isLoading }: AudioUploaderProps) {
       {error && (
         <div className="mb-4 rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-700">
           {error}
+        </div>
+      )}
+
+      {convertStatus && !error && (
+        <div className="mb-4 rounded-md border border-teal-200 bg-teal-50 p-3 text-sm text-teal-700">
+          {convertStatus}
         </div>
       )}
 
@@ -198,7 +210,7 @@ export function AudioUploader({ onSubmit, isLoading }: AudioUploaderProps) {
             disabled={isConverting || isLoading}
             className="w-full"
           >
-            {isConverting ? 'Converting…' : isLoading ? 'Generating…' : 'Submit ▶'}
+            {isConverting ? convertStatus || 'Converting…' : isLoading ? 'Generating…' : 'Submit ▶'}
           </Button>
         </div>
       )}

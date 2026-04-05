@@ -6,6 +6,7 @@ import { InputPanel } from '@/features/input/InputPanel'
 import { SourceViewer } from '@/features/source-viewer/SourceViewer'
 import { HandoverEditor } from '@/features/editor/HandoverEditor'
 import { ExportBar } from '@/features/export/ExportBar'
+import { Footer } from '@/components/layout/Footer'
 import { useGeneration } from '@/features/generation/useGeneration'
 import { useUnsavedWarning } from '@/hooks/useUnsavedWarning'
 import { DEFAULT_TEMPLATE } from '@/lib/templates'
@@ -146,6 +147,7 @@ export function AppClient() {
           </div>
         )}
       </div>
+      <Footer />
     </main>
   )
 }

@@ -24,6 +24,7 @@ export function AudioRecorder({ onSubmit, isLoading }: AudioRecorderProps) {
   } = useAudioRecorder()
 
   const [isConverting, setIsConverting] = useState(false)
+  const [convertStatus, setConvertStatus] = useState<string | null>(null)
   const [convertError, setConvertError] = useState<string | null>(null)
   const [mounted, setMounted] = useState(false)
 
@@ -42,14 +43,19 @@ export function AudioRecorder({ onSubmit, isLoading }: AudioRecorderProps) {
 
     setIsConverting(true)
     setConvertError(null)
+    setConvertStatus('Loading audio converter…')
 
     try {
-      const base64 = await convertToWavBase64(audioBlob)
+      const base64 = await convertToWavBase64(audioBlob, (message) => {
+        setConvertStatus(message)
+      })
       onSubmit(base64)
-    } catch {
-      setConvertError('Failed to convert audio. Please try again.')
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Unknown error'
+      setConvertError(`Failed to convert audio: ${message}`)
     } finally {
       setIsConverting(false)
+      setConvertStatus(null)
     }
   }
 
@@ -93,6 +99,12 @@ export function AudioRecorder({ onSubmit, isLoading }: AudioRecorderProps) {
       {convertError && (
         <div className="mb-4 rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-700">
           {convertError}
+        </div>
+      )}
+
+      {convertStatus && !convertError && (
+        <div className="mb-4 rounded-md border border-teal-200 bg-teal-50 p-3 text-sm text-teal-700">
+          {convertStatus}
         </div>
       )}
 
@@ -147,7 +159,7 @@ export function AudioRecorder({ onSubmit, isLoading }: AudioRecorderProps) {
                 onClick={handleSubmit}
                 disabled={isConverting || isLoading}
               >
-                {isConverting ? 'Converting…' : isLoading ? 'Generating…' : 'Submit ▶'}
+                {isConverting ? convertStatus || 'Converting…' : isLoading ? 'Generating…' : 'Submit ▶'}
               </Button>
             </div>
           </>

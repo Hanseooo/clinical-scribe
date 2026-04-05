@@ -3,17 +3,39 @@ import { FFmpeg } from '@ffmpeg/ffmpeg'
 import { toBlobURL } from '@ffmpeg/util'
 
 let ffmpeg: FFmpeg | null = null
+let isLoaded = false
 
 self.onmessage = async (event: MessageEvent<{ blob: Blob }>) => {
   try {
-    if (!ffmpeg) {
+    if (!isLoaded) {
+      self.postMessage({ loading: true, message: 'Loading audio converter…' })
+
       ffmpeg = new FFmpeg()
 
-      const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd'
+      ffmpeg.on('log', ({ message }) => {
+        console.log('[ffmpeg-worker]', message)
+      })
+
+      ffmpeg.on('progress', ({ progress, time }) => {
+        self.postMessage({
+          progress: true,
+          message: `Converting… ${Math.round(progress * 100)}%`,
+        })
+      })
+
+      const baseURL = 'https://cdn.jsdelivr.net/npm/@ffmpeg/core@0.12.6/dist/umd'
+
       await ffmpeg.load({
         coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
         wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm'),
       })
+
+      isLoaded = true
+      self.postMessage({ loading: false, message: 'Converter ready' })
+    }
+
+    if (!ffmpeg) {
+      throw new Error('FFmpeg failed to initialize')
     }
 
     const inputBlob = event.data.blob
@@ -45,9 +67,11 @@ self.onmessage = async (event: MessageEvent<{ blob: Blob }>) => {
 
     self.postMessage({ success: true, base64 })
   } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown conversion error'
+    console.error('[ffmpeg-worker] Conversion failed:', errorMessage)
     self.postMessage({
       success: false,
-      error: error instanceof Error ? error.message : 'Unknown conversion error',
+      error: errorMessage,
     })
   }
 }

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { Separator } from '@/components/ui/separator'
+import { Footer } from '@/components/layout/Footer'
 
 const techStack = [
   { layer: 'Framework', tool: 'Next.js 16 (App Router)', detail: 'Full-stack React, Vercel-native' },
@@ -15,23 +16,23 @@ const flowSteps = [
   {
     title: 'Input',
     description: 'Students record a patient handover using their browser microphone, upload an existing audio file, or type/paste clinical notes directly into the app.',
-    detail: 'Audio is converted client-side via ffmpeg.wasm — no server processing needed. Text goes directly to the AI pipeline.',
+    detail: 'Audio is converted client-side via ffmpeg.wasm. No server processing needed. Text goes directly to the AI pipeline.',
   },
   {
     title: 'AI Processing',
-    description: 'The input is sent to a single Next.js API route that calls Gemini 2.5 Flash via LangChain.',
+    description: 'The input is sent to a single Next.js API route that calls AI for processing.',
     detail: 'Audio gets transcribed AND structured in one call. Text skips transcription and goes straight to structuring. Both paths return the same output format.',
   },
   {
     title: 'Review & Export',
     description: 'The generated handover appears as editable markdown with safety-critical values highlighted.',
-    detail: 'Students can edit in the Edit tab, review highlights in Preview, then export as Markdown or PDF. Everything is session-only — nothing is stored.',
+    detail: 'Students can edit in the Edit tab, review highlights in Preview, then export as Markdown or PDF. Everything is session-only. Nothing is stored.',
   },
 ]
 
 export const metadata = {
   title: 'About',
-  description: 'Learn about ClinicalScribe — how it works, the tech stack, and its purpose.',
+  description: 'Learn about ClinicalScribe. How it works, the tech stack, and its purpose.',
 }
 
 export default function AboutPage() {
@@ -56,7 +57,7 @@ export default function AboutPage() {
             </h1>
             <p className="mt-6 text-lg leading-relaxed text-slate-500">
               A free, open tool built to help nursing students practice structured clinical
-              handover documentation — and develop the habit of double-checking critical values.
+              handover documentation and develop the habit of double-checking critical values.
             </p>
           </div>
         </div>
@@ -79,13 +80,13 @@ export default function AboutPage() {
                   and patient harm.
                 </p>
                 <p>
-                  ClinicalScribe was built specifically for <strong className="font-medium text-slate-800">Philippine nursing students</strong> —
-                  the primary users who need to practice ISBAR/SBAR/ISOBAR formats regularly but
+                  ClinicalScribe was built specifically for <strong className="font-medium text-slate-800">Philippine nursing students</strong>.
+                  They are the primary users who need to practice ISBAR/SBAR/ISOBAR formats regularly but
                   don&apos;t always have access to structured feedback during clinical rotations.
                 </p>
                 <p>
                   The tool lets students record real or simulated handover scenarios, get instant
-                  structured output, and — most importantly — learn to identify and verify
+                  structured output, and most importantly, learn to identify and verify
                   safety-critical information like dosages, vital signs, and unclear values.
                 </p>
               </div>
@@ -97,9 +98,9 @@ export default function AboutPage() {
               <ul className="mt-4 space-y-3">
                 {[
                   ['Free tier only', 'No paid APIs, no subscriptions, no paywalls'],
-                  ['Privacy-first', 'No database, no auth, no data stored — session only'],
+                  ['Privacy-first', 'No database, no auth, no data stored. Session only'],
                   ['Safety-forward', 'Every critical value highlighted for manual verification'],
-                  ['Educational use', 'Not a clinical tool — always verify with an instructor'],
+                  ['Educational use', 'Not a clinical tool. Always verify with an instructor'],
                   ['Open & extensible', 'Modular design, easy to add templates or features'],
                 ].map(([title, desc]) => (
                   <li key={title} className="flex gap-3">
@@ -123,7 +124,7 @@ export default function AboutPage() {
         <div className="mx-auto max-w-6xl px-4 py-16 sm:py-20">
           <div className="mb-12">
             <h2 className="font-heading text-2xl font-bold tracking-tight text-slate-900">
-              How it works — in detail
+              How it works
             </h2>
             <p className="mt-3 text-slate-500">
               From input to export, here&apos;s what happens at each step.
@@ -244,6 +245,7 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+      <Footer />
     </div>
   )
 }

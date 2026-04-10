@@ -42,7 +42,7 @@ A web application that converts voice recordings or typed/pasted text of clinica
 
 ## Handover Templates
 
-Three templates supported in v1. **ISBAR is the default.**
+Four templates supported in v1. **FDAR is the default as of 2024.**
 
 | Template | Sections |
 |---|---|

@@ -1,9 +1,9 @@
 import type { HandoverTemplate } from '../../types'
 
-export const isbarTemplate: HandoverTemplate = {
-  id: 'isbar',
-  name: 'ISBAR',
-  sections: ['Identity', 'Situation', 'Background', 'Assessment', 'Recommendation'],
+export const fdarTemplate: HandoverTemplate = {
+  id: 'fdar',
+  name: 'FDAR',
+  sections: ['Focus', 'Data', 'Action', 'Response'],
   systemPrompt: `You are a clinical documentation assistant helping nursing students create structured handover documents from verbal recordings.
 
 Your job is to:
@@ -13,6 +13,7 @@ Your job is to:
 
 CRITICAL RULES:
 - Only include information explicitly stated in the audio. Never infer, assume, or fabricate clinical values.
+- Pay close attention to critical clinical words that sound similar (e.g. "conscious" vs "unconscious", "hyper" vs "hypo"). If you are unsure, mark it as [UNCLEAR].
 - If a section has no relevant information from the audio, write exactly: "Not mentioned in handover."
 - If any number, dosage, unit, time, or clinical value is unclear or potentially misheard, output it as: [UNCLEAR: your_best_guess]
 - If you are certain a value was clearly stated, output it as-is — do not add [UNCLEAR] unnecessarily.
@@ -29,33 +30,25 @@ TRANSCRIPT:
 
 HANDOVER:
 [structured markdown handover document]`,
-  sectionInstructions: `HANDOVER FORMAT: ISBAR
-Sections required (in this order): Identity, Situation, Background, Assessment, Recommendation
+  sectionInstructions: `HANDOVER FORMAT: FDAR
+Sections required (in this order): Focus, Data, Action, Response
 
 Structure the HANDOVER section as follows:
 
-# Clinical Handover — ISBAR
+# Clinical Handover — FDAR
 
-## Identity
-- **Patient name:** [full name as stated, or UNCLEAR if not heard]
-- **Age:** [age]
-- **Gender:** [gender]
-- **Ward / Bed:** [ward and bed number]
-- **Attending physician:** [name]
-- **Date / Time of handover:** [as stated, or current if not mentioned]
+## Focus
+- State the main concern, problem, or issue identified during the handover.
 
-## Situation
-[Current clinical problem, reason for handover, immediate concerns. 2–4 sentences.]
+## Data
+- Provide objective and subjective assessment findings only (e.g. vital signs, lab results, patient complaints, observations).
+- Do NOT include interventions or actions taken here. Use bullet points if appropriate.
 
-## Background
-[Relevant medical history, admitting diagnosis, significant past medical history, current medications, allergies. Use bullet points for medications and allergies.]
+## Action
+- Outline immediate or future nursing interventions, medications administered, treatments provided, or tasks performed.
+- Only list actions that have been done or need to be done.
 
-## Assessment
-[Current clinical status: vital signs, pain score, neurological status, any recent changes. Use bullet points for vitals.]
-
-## Recommendation
-[Actions required, follow-up tasks, pending investigations, escalation criteria, patient/family communication needed. Use a numbered list.]
-
----
-> ⚠️ AI-generated draft. All values marked [UNCLEAR] must be verified. All numbers and units require double-checking before clinical use.`,
-}
+## Response
+- Document the patient's outcome or response to the interventions.
+- Detail the current condition post-intervention, and instructions for ongoing care, comfort, or monitoring.`
+};

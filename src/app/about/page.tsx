@@ -76,17 +76,15 @@ export default function AboutPage() {
               <div className="mt-6 space-y-4 text-slate-600 leading-relaxed">
                 <p>
                   Clinical handovers are one of the most critical communication moments in healthcare.
-                  Poorly structured handovers lead to missed information, delayed interventions,
-                  and patient harm.
+                  As of 2024, the FDAR (Focus, Data, Action, Response) format is the recommended national standard for nursing handovers in the Philippines, per updated hospital policies and curricula. Poorly structured handovers, regardless of format, lead to missed information, delayed interventions, and patient harm.
                 </p>
                 <p>
-                  ClinicalScribe was built specifically for <strong className="font-medium text-slate-800">Philippine nursing students</strong>.
-                  They are the primary users who need to practice ISBAR/SBAR/ISOBAR formats regularly but
-                  don&apos;t always have access to structured feedback during clinical rotations.
+ClinicalScribe was built specifically for <strong className="font-medium text-slate-800">Philippine nursing students</strong>.
+They are the primary users who need to practice FDAR, ISBAR, SBAR, and ISOBAR formats regularly. FDAR (Focus, Data, Action, Response) is now the 2024 recommended default in most PH hospitals and nursing schools, as endorsed by official guidelines and curricula.
                 </p>
                 <p>
                   The tool lets students record real or simulated handover scenarios, get instant
-                  structured output, and most importantly, learn to identify and verify
+                  output in the default FDAR format (or ISBAR/SBAR/ISOBAR if selected), and most importantly, learn to identify and verify
                   safety-critical information like dosages, vital signs, and unclear values.
                 </p>
               </div>
@@ -124,10 +122,10 @@ export default function AboutPage() {
         <div className="mx-auto max-w-6xl px-4 py-16 sm:py-20">
           <div className="mb-12">
             <h2 className="font-heading text-2xl font-bold tracking-tight text-slate-900">
-              How it works
+How it works — why FDAR is default
             </h2>
             <p className="mt-3 text-slate-500">
-              From input to export, here&apos;s what happens at each step.
+              From input to export, here’s what happens at each step. As of 2024, FDAR is set as the default for this tool: FDAR (Focus, Data, Action, Response) puts problem focus and action-planning at the center, and is the recommended template in most modern PH nursing education/clinical settings. You can still select ISBAR, SBAR, or ISOBAR if your rotation/instructor requires.
             </p>
           </div>
 

@@ -13,7 +13,7 @@ Your job is to:
 
 CRITICAL RULES:
 - Only include information explicitly stated in the audio. Never infer, assume, or fabricate clinical values.
-- Pay close attention to critical clinical words that sound similar (e.g. "conscious" vs "unconscious", "hyper" vs "hypo"). If you are unsure, mark it as [UNCLEAR].
+- Watch out for speech-to-text hallucination errors and contradictions (e.g., if the transcript says "unconscious and oriented", it MUST be interpreted and structured as "conscious and oriented", because "unconscious" contradicts "oriented"). Pay extremely close attention to "conscious" vs "unconscious", and "hyper" vs "hypo".
 - If a section has no relevant information from the audio, write exactly: "Not mentioned in handover."
 - If any number, dosage, unit, time, or clinical value is unclear or potentially misheard, output it as: [UNCLEAR: your_best_guess]
 - If you are certain a value was clearly stated, output it as-is — do not add [UNCLEAR] unnecessarily.
@@ -38,17 +38,19 @@ Structure the HANDOVER section as follows:
 # Clinical Handover — FDAR
 
 ## Focus
-- State the main concern, problem, or issue identified during the handover.
+- State the main concern, problem, or issue identified during the handover. Keep it extremely brief (e.g., "Breathing pattern and oxygenation"). Do not add "related to" clauses unless explicitly stated in the audio.
 
 ## Data
-- Provide objective and subjective assessment findings only (e.g. vital signs, lab results, patient complaints, observations).
-- Do NOT include interventions or actions taken here. Use bullet points if appropriate.
+- Provide objective and subjective assessment findings only.
+- Group the data logically (e.g. Assessment Findings, Vital Signs).
+- Do NOT include ongoing treatments, therapies, or interventions (like IV fluids, oxygen, positioning) here.
 
 ## Action
 - Outline immediate or future nursing interventions, medications administered, treatments provided, or tasks performed.
-- Only list actions that have been done or need to be done.
+- Include existing therapies and devices (e.g., "Oxygen at 2 L/min via nasal cannula", "IV fluids running").
+- Include any instructions given for ongoing care (e.g., "Assess properly", "Monitor oxygen saturation", "Keep patient comfortable").
 
 ## Response
-- Document the patient's outcome or response to the interventions.
-- Detail the current condition post-intervention, and instructions for ongoing care, comfort, or monitoring.`
+- Document the patient's outcome or response to the interventions (e.g., "Patient maintained oxygen saturation at 92%", "Patient reports mild chest discomfort persists").
+- Do NOT put instructions or actions in this section. If no patient response is explicitly described in the audio, write exactly: "Not mentioned in handover."`
 };

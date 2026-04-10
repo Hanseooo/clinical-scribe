@@ -118,16 +118,36 @@ function parseTextOutput(raw: string, inputText: string): ChainOutput {
   return { source: inputText, handover }
 }
 
+import { HumanMessage } from '@langchain/core/messages'
+
 export async function generateFromAudio(input: AudioChainInput): Promise<ChainOutput> {
   const prompt = buildAudioPrompt(input)
   const model = getModel()
-
   const chain = model.pipe(new StringOutputParser())
+  
+  const message = new HumanMessage({
+    content: [
+      { type: 'text', text: prompt },
+      { 
+        type: 'media',
+        mimeType: 'audio/wav',
+        fileUri: input.audioFileUri
+      } as any // Forcing type here as LangChain types for Gemini media can be tricky
+    ]
+  })
 
-  const raw = await chain.invoke(prompt)
-
+  let raw: string
+  try {
+    raw = await chain.invoke([message])
+  } catch (err: any) {
+    // Try to extract Gemini/model-specific error message
+    let aiError = err?.message || 'Unknown Gemini response error'
+    if (err?.cause) aiError += '\nCaused by: ' + JSON.stringify(err.cause)
+    throw new Error(`FORMAT_ERROR: LLM error: ${aiError}`)
+  }
   return parseAudioOutput(raw)
 }
+
 
 export async function generateFromText(input: TextChainInput): Promise<ChainOutput> {
   const prompt = buildTextPrompt(input)

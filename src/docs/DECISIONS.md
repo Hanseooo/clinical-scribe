@@ -109,7 +109,7 @@ Each entry follows the format: **Context → Options considered → Decision →
 
 ---
 
-## ADR-007: ISBAR as default template
+## ADR-007: FDAR as default template
 
 **Context:** We support SBAR, ISBAR, and ISOBAR. One must be the default.
 
@@ -120,7 +120,7 @@ Each entry follows the format: **Context → Options considered → Decision →
 | **ISBAR** | Most common in Philippine nursing schools; adds patient Identity which is clinically important |
 | ISOBAR | Most comprehensive but more complex for students |
 
-**Decision:** ISBAR as default.
+**Decision (Updated 2024):** FDAR as default. See reasoning above for the change.
 
 **Rationale:** The primary user is a Philippine nursing student. ISBAR is the format most likely taught in their curriculum. Students can switch to SBAR or ISOBAR freely.
 

@@ -18,7 +18,7 @@ CRITICAL RULES:
 - If you are certain a value was clearly stated, output it as-is — do not add [UNCLEAR] unnecessarily.
 - All numbers and units must be written exactly as spoken. Do not round, convert, or normalise.
 - Be concise. Clinical handovers should be brief and factual, not narrative.
-- The speaker may have a Filipino English accent. Prioritise clinical context when interpreting unclear words.
+- The speaker may have a Filipino English accent and occasionally code-switch to Tagalog or Bisaya. Prioritise clinical context when interpreting unclear words.
 - Output language: English only.
 
 OUTPUT FORMAT (mandatory — do not deviate):

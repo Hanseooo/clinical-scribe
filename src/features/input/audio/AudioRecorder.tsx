@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { Button } from '@/components/ui/button'
 import { useAudioRecorder } from './useAudioRecorder'
 import { convertToWavBase64 } from './converter'
+import { Send } from 'lucide-react'
 
 interface AudioRecorderProps {
   onSubmit: (base64: string) => void
@@ -159,7 +160,12 @@ export function AudioRecorder({ onSubmit, isLoading }: AudioRecorderProps) {
                 onClick={handleSubmit}
                 disabled={isConverting || isLoading}
               >
-                {isConverting ? convertStatus || 'Converting…' : isLoading ? 'Generating…' : 'Submit ▶'}
+                {isConverting
+  ? convertStatus || 'Converting…'
+  : isLoading
+  ? 'Generating…'
+  : <><span>Submit</span><Send className="ml-2 h-4 w-4 inline" aria-label="Submit" /></>}
+
               </Button>
             </div>
           </>

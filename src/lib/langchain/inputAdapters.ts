@@ -61,20 +61,34 @@ export async function uploadToGeminiFileApi(audioBase64: string): Promise<string
 
   const uploadResponse = await fetch(uploadUrl2, {
     method: 'POST',
-    headers: {
-      'Content-Length': String(binaryData.length),
-      'X-Goog-Upload-Command': 'upload, finalize',
-      'Content-Type': 'application/octet-stream',
-    },
+     headers: {
+       'Content-Length': String(binaryData.length),
+       'X-Goog-Upload-Command': 'upload, finalize',
+       'X-Goog-Upload-Offset': '0',
+       'Content-Type': 'application/octet-stream',
+     },
     body: binaryData,
   })
 
-  if (!uploadResponse.ok) {
-    throw new Error(`Failed to upload file data: ${uploadResponse.statusText}`)
-  }
+   if (!uploadResponse.ok) {
+     let errorDetails = ''
+     try {
+       // Try to parse as JSON, else use text
+       const contentType = uploadResponse.headers.get('content-type') || '';
+       if (contentType.includes('application/json')) {
+         const json = await uploadResponse.json();
+         errorDetails = JSON.stringify(json)
+       } else {
+         errorDetails = await uploadResponse.text()
+       }
+     } catch (e) {
+       errorDetails = '[Error parsing Gemini response]'
+     }
+     throw new Error(`Failed to upload file data: ${uploadResponse.statusText}; GeminiError: ${errorDetails}`)
+   }
 
-  const result = (await uploadResponse.json()) as { uri: string }
-  return result.uri
+  const result = (await uploadResponse.json()) as { file: { uri: string } }
+  return result.file.uri
 }
 
 export async function deleteFromGeminiFileApi(fileUri: string): Promise<void> {

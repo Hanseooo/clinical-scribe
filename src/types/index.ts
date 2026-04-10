@@ -1,4 +1,4 @@
-export type TemplateId = 'sbar' | 'isbar' | 'isobar'
+export type TemplateId = 'sbar' | 'isbar' | 'isobar' | 'fdar'
 export type OutputLanguage = 'en'
 export type InputModality = 'audio-record' | 'audio-upload' | 'text'
 

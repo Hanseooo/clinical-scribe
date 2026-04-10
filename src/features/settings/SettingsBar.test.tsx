@@ -15,7 +15,7 @@ describe('SettingsBar', () => {
   it('renders template selector with correct default value', () => {
     render(<SettingsBar {...defaultProps} />)
 
-    expect(screen.getByRole('combobox', { name: /template/i })).toHaveTextContent('ISBAR')
+    expect(screen.getByRole('combobox', { name: /template/i })).toHaveTextContent('FDAR')
   })
 
   it('shows the current template as selected', () => {

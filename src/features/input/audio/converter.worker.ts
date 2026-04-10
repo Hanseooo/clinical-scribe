@@ -59,8 +59,16 @@ self.onmessage = async (event: MessageEvent<{ blob: Blob }>) => {
     const outputData = await ffmpeg.readFile('output.wav')
     const outputUint8 = outputData as Uint8Array
 
-    const binary = String.fromCharCode(...outputUint8)
-    const base64 = btoa(binary)
+function uint8ToBase64(uint8: Uint8Array) {
+  let binary = ''
+  const len = uint8.length
+  for (let i = 0; i < len; i += 16384) {
+    binary += String.fromCharCode.apply(null, Array.from(uint8.subarray(i, i + 16384)))
+  }
+  return btoa(binary)
+}
+const base64 = uint8ToBase64(outputUint8)
+
 
     await ffmpeg.deleteFile('input.webm')
     await ffmpeg.deleteFile('output.wav')

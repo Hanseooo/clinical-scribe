@@ -64,32 +64,35 @@ export async function POST(request: Request) {
       model: 'gemini-2.5-flash',
     })
   } catch (error) {
-    const message = error instanceof Error ? error.message : 'Unknown error occurred'
+    const message = error instanceof Error ? error.message : 'Unknown error occurred';
 
+    // Gemini debugging: surface full error, if present
+    if (message.includes('GeminiError:')) {
+      return NextResponse.json(
+        { error: 'Gemini API upload failure', code: 'GEMINI_UPLOAD_ERROR', gemini: message },
+        { status: 500 },
+      );
+    }
     if (message.includes('FORMAT_ERROR')) {
       return NextResponse.json(
         { error: 'Failed to parse AI response', code: 'FORMAT_ERROR' },
         { status: 500 },
-      )
-    }
-
-    if (message.includes('Failed to upload') || message.includes('Failed to delete')) {
+      );
+    } else if (message.includes('Failed to upload') || message.includes('Failed to delete')) {
       return NextResponse.json(
         { error: 'File processing error', code: 'FORMAT_ERROR' },
         { status: 500 },
-      )
-    }
-
-    if (message.includes('Text modality requires text')) {
+      );
+    } else if (message.includes('Text modality requires text')) {
       return NextResponse.json(
         { error: 'No text content provided', code: 'NO_CONTENT' },
         { status: 400 },
-      )
+      );
+    } else {
+      return NextResponse.json(
+        { error: message, code: 'UNKNOWN' },
+        { status: 500 },
+      );
     }
-
-    return NextResponse.json(
-      { error: message, code: 'UNKNOWN' },
-      { status: 500 },
-    )
   }
 }

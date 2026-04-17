@@ -3,15 +3,19 @@
 import { useState } from 'react'
 import { AudioPanel } from './audio/AudioPanel'
 import { TextPanel } from './text/TextPanel'
+import type { TemplateId } from '@/types'
+import { TEMPLATES } from '@/lib/templates'
 
 interface InputPanelProps {
   onTextSubmit: (text: string) => void
   onAudioSubmit: (base64: string) => void
   isLoading: boolean
+  template: TemplateId
 }
 
-export function InputPanel({ onTextSubmit, onAudioSubmit, isLoading }: InputPanelProps) {
+export function InputPanel({ onTextSubmit, onAudioSubmit, isLoading, template }: InputPanelProps) {
   const [activeTab, setActiveTab] = useState<'audio' | 'text'>('audio')
+  const templateLabel = TEMPLATES[template]?.name ?? 'Handover'
 
   return (
     <div className="space-y-3">
@@ -47,9 +51,9 @@ export function InputPanel({ onTextSubmit, onAudioSubmit, isLoading }: InputPane
       </div>
 
       {activeTab === 'audio' ? (
-        <AudioPanel onSubmit={onAudioSubmit} isLoading={isLoading} />
+        <AudioPanel onSubmit={onAudioSubmit} isLoading={isLoading} templateLabel={templateLabel} />
       ) : (
-        <TextPanel onSubmit={onTextSubmit} isLoading={isLoading} />
+        <TextPanel onSubmit={onTextSubmit} isLoading={isLoading} templateLabel={templateLabel} />
       )}
     </div>
   )

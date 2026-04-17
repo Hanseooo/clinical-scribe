@@ -92,6 +92,7 @@ export function AppClient() {
             onTextSubmit={handleTextSubmit}
             onAudioSubmit={handleAudioSubmit}
             isLoading={isLoading}
+            template={template}
           />
         </div>
 
@@ -106,7 +107,7 @@ export function AppClient() {
         {generationResult && (
           <div className="space-y-5 animate-in fade-in duration-500">
             <SourceViewer result={generationResult} />
-            <HandoverEditor value={handover} onChange={handleEditorChange} />
+            <HandoverEditor value={handover} onChange={handleEditorChange} template={template} />
             <div data-print-hide="true">
               <ExportBar
                 content={handover}

@@ -20,9 +20,10 @@ const MAX_SIZE = 50 * 1024 * 1024 // 50MB
 interface AudioUploaderProps {
   onSubmit: (base64: string) => void
   isLoading: boolean
+  templateLabel: string
 }
 
-export function AudioUploader({ onSubmit, isLoading }: AudioUploaderProps) {
+export function AudioUploader({ onSubmit, isLoading, templateLabel }: AudioUploaderProps) {
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const [duration, setDuration] = useState<number | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -210,7 +211,7 @@ export function AudioUploader({ onSubmit, isLoading }: AudioUploaderProps) {
             disabled={isConverting || isLoading}
             className="w-full"
           >
-            {isConverting ? convertStatus || 'Converting…' : isLoading ? 'Generating…' : 'Submit ▶'}
+            {isConverting ? convertStatus || 'Converting…' : isLoading ? 'Generating…' : `Generate ${templateLabel} ▶`}
           </Button>
         </div>
       )}

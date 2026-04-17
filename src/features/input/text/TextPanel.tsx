@@ -7,9 +7,11 @@ interface TextPanelProps {
   onSubmit: (text: string) => void
   isLoading: boolean
   initialValue?: string
+  templateLabel: string
 }
 
-export function TextPanel({ onSubmit, isLoading, initialValue }: TextPanelProps) {
+export function TextPanel({ onSubmit, isLoading, initialValue, templateLabel }: TextPanelProps) {
+  const isFdar = templateLabel === 'FDAR'
   const {
     text,
     setText,
@@ -29,6 +31,11 @@ export function TextPanel({ onSubmit, isLoading, initialValue }: TextPanelProps)
 
   return (
     <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+      <p className="mb-2 text-sm text-slate-600">
+        {isFdar
+          ? 'Paste or type your handover notes. For FDAR, enter Subjective and Objective data clearly.'
+          : 'Paste or type your handover report here…'}
+      </p>
       <textarea
         className={`w-full resize-none rounded-md border bg-stone-50 p-3 font-mono text-sm leading-relaxed text-slate-800 outline-none transition-colors focus:border-teal-600 focus:ring-1 focus:ring-teal-600/20 ${
           isOverLimit
@@ -41,7 +48,7 @@ export function TextPanel({ onSubmit, isLoading, initialValue }: TextPanelProps)
         maxLength={hardLimit + 100}
         value={text}
         onChange={(e) => setText(e.target.value)}
-        placeholder="Paste or type the handover report here…"
+        placeholder={isFdar ? 'Subjective: "I noticed..." (as verbalized by the patient)\n\nObjective: clinical findings here...' : 'Paste or type the handover report here…'}
         disabled={isLoading}
         aria-label="Handover notes"
         aria-describedby="text-status"
@@ -68,7 +75,7 @@ export function TextPanel({ onSubmit, isLoading, initialValue }: TextPanelProps)
           disabled={!isValid || isLoading}
           aria-busy={isLoading}
         >
-          {isLoading ? 'Generating…' : 'Generate Handover ▶'}
+          {isLoading ? 'Generating…' : `Generate ${templateLabel} ▶`}
         </Button>
       </div>
     </div>

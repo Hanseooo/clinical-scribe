@@ -72,7 +72,7 @@ export default function LandingPage() {
             </h1>
             <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-slate-500 sm:text-xl">
               Record a patient handover or paste your notes to get a clean, structured
-              FDAR document in seconds. Safety-critical values highlighted for review. FDAR (Focus, Data, Action, Response) is the clinically recommended default in most Philippine hospitals and nursing schools as of 2024.
+              FDAR document in seconds. Safety-critical values highlighted for review.
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Link

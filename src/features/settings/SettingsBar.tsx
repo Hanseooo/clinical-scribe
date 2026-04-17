@@ -41,6 +41,7 @@ export function SettingsBar({
             {Object.values(TEMPLATES).map((t) => (
               <SelectItem key={t.id} value={t.id}>
                 {t.name}
+                
               </SelectItem>
             ))}
           </SelectContent>

@@ -7,10 +7,12 @@ export interface HighlightedSegment {
 }
 
 export function highlightText(text: string): HighlightedSegment[] {
+  console.log('highlightText: input starts with:', text.slice(0, 80))
   const segments: HighlightedSegment[] = []
   const remaining = text
 
   const sortedPatterns = [...SAFETY_PATTERNS].sort((a, b) => a.priority - b.priority)
+  console.log('highlightText: patterns count:', sortedPatterns.length)
 
   const matches: Array<{ index: number; length: number; className: string; pattern: typeof SAFETY_PATTERNS[number] }> = []
   const usedRanges: Array<{ start: number; end: number }> = []
@@ -18,8 +20,10 @@ export function highlightText(text: string): HighlightedSegment[] {
   for (const pattern of sortedPatterns) {
     const regex = new RegExp(pattern.pattern.source, pattern.pattern.flags)
     let match: RegExpExecArray | null
+    let matchCount = 0
 
     while ((match = regex.exec(remaining)) !== null) {
+      matchCount++
       const start = match.index
       const end = start + match[0].length
 
@@ -32,7 +36,12 @@ export function highlightText(text: string): HighlightedSegment[] {
         usedRanges.push({ start, end })
       }
     }
+    if (matchCount > 0) {
+      console.log('highlightText: pattern', pattern.className, 'matched', matchCount, 'times')
+    }
   }
+
+  console.log('highlightText: total matches:', matches.length)
 
   matches.sort((a, b) => a.index - b.index)
 
@@ -56,5 +65,6 @@ export function highlightText(text: string): HighlightedSegment[] {
     segments.push({ type: 'text', content: remaining.slice(currentIndex) })
   }
 
+  console.log('highlightText: output segments:', segments.filter(s => s.type === 'mark').length, 'marks')
   return segments
 }

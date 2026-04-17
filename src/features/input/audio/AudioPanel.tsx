@@ -7,13 +7,19 @@ import { AudioUploader } from './AudioUploader'
 interface AudioPanelProps {
   onSubmit: (base64: string) => void
   isLoading: boolean
+  templateLabel: string
 }
 
-export function AudioPanel({ onSubmit, isLoading }: AudioPanelProps) {
+export function AudioPanel({ onSubmit, isLoading, templateLabel }: AudioPanelProps) {
   const [activeTab, setActiveTab] = useState<'record' | 'upload'>('record')
+
+  const helperText = activeTab === 'record'
+    ? 'Record your bedside handover. Pause to review before submitting.'
+    : 'Upload an audio recording in .wav, .mp3, or supported formats.'
 
   return (
     <div className="space-y-3">
+      <p className="text-sm text-slate-600">{helperText}</p>
       <div className="flex gap-1 rounded-xl border border-slate-200 bg-white p-1.5 shadow-sm">
         <button
           type="button"
@@ -40,9 +46,9 @@ export function AudioPanel({ onSubmit, isLoading }: AudioPanelProps) {
       </div>
 
       {activeTab === 'record' ? (
-        <AudioRecorder onSubmit={onSubmit} isLoading={isLoading} />
+        <AudioRecorder onSubmit={onSubmit} isLoading={isLoading} templateLabel={templateLabel} />
       ) : (
-        <AudioUploader onSubmit={onSubmit} isLoading={isLoading} />
+        <AudioUploader onSubmit={onSubmit} isLoading={isLoading} templateLabel={templateLabel} />
       )}
     </div>
   )

@@ -154,6 +154,56 @@ Structure the HANDOVER section as follows:
 
 ---
 
+---
+
+## FDAR Template Prompt (Default)
+
+```
+{system_prompt}
+
+HANDOVER FORMAT: FDAR
+Sections required (in this order): Focus, Data, Action, Response
+
+Structure the HANDOVER section as follows:
+
+# Clinical Handover — FDAR
+
+## Focus
+State the main concern, problem, or issue identified during the handover. Keep it extremely brief (e.g., "Risk for infection"). Do not add "related to" clauses unless explicitly stated.
+
+## Data
+MUST split into **Subjective** and **Objective**:
+
+**Subjective**
+- Document the patient's direct quotes EXACTLY as stated, followed by ", as verbalized by the patient"
+- Example: "I noticed that the stream...," as verbalized by the patient.
+- If no subjective information, write: "Not mentioned in handover."
+
+**Objective**
+- Document all clinical findings as bullet points
+- Include vital signs, assessment findings, physical examination results
+- Example: "(+) gush of clear vaginal fluid noted"
+- If no objective information, write: "Not mentioned in handover."
+
+Do NOT include ongoing treatments, therapies, or interventions here.
+
+## Action
+- Outline immediate or future nursing interventions, medications administered, treatments provided, or tasks performed.
+- Include existing therapies and devices (e.g., "Oxygen at 2 L/min via nasal cannula", "IV fluids running").
+- Use bullet points.
+- If no actions mentioned, write: "Not mentioned in handover."
+
+## Response
+- Document the patient's outcome or response to the interventions
+- Use bullet points
+- If no patient response is explicitly described, write exactly: "Not mentioned in handover."
+
+---
+> FDAR is the default template as of v1. The Subjective/Objective split is a key nursing handover structure.
+```
+
+---
+
 ## Prompt Engineering Notes
 
 ### Why few-shot structure?

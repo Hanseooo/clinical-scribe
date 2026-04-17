@@ -9,9 +9,10 @@ import { Send } from 'lucide-react'
 interface AudioRecorderProps {
   onSubmit: (base64: string) => void
   isLoading: boolean
+  templateLabel: string
 }
 
-export function AudioRecorder({ onSubmit, isLoading }: AudioRecorderProps) {
+export function AudioRecorder({ onSubmit, isLoading, templateLabel }: AudioRecorderProps) {
   const {
     status,
     duration,
@@ -160,11 +161,11 @@ export function AudioRecorder({ onSubmit, isLoading }: AudioRecorderProps) {
                 onClick={handleSubmit}
                 disabled={isConverting || isLoading}
               >
-                {isConverting
-  ? convertStatus || 'Converting…'
-  : isLoading
-  ? 'Generating…'
-  : <><span>Submit</span><Send className="ml-2 h-4 w-4 inline" aria-label="Submit" /></>}
+{isConverting
+                  ? convertStatus || 'Converting…'
+                  : isLoading
+                  ? 'Generating…'
+                  : <><span>Generate {templateLabel}</span><Send className="ml-2 h-4 w-4 inline" aria-label="Submit" /></>}
 
               </Button>
             </div>

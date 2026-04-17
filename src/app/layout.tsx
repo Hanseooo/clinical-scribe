@@ -22,11 +22,11 @@ const dmMono = DM_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "ClinicalScribe — AI Clinical Handover Documentation",
+    default: "ClinicalScribe - AI Clinical Handover Documentation",
     template: "%s | ClinicalScribe",
   },
   description:
-    "Convert voice recordings or typed notes into structured ISBAR/SBAR clinical handover documents. Built for nursing students.",
+    "Convert voice recordings or typed notes into structured clinical handover documents. Built for nursing students.",
 };
 
 export default function RootLayout({

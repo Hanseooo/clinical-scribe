@@ -38,19 +38,33 @@ Structure the HANDOVER section as follows:
 # Clinical Handover — FDAR
 
 ## Focus
-- State the main concern, problem, or issue identified during the handover. Keep it extremely brief (e.g., "Breathing pattern and oxygenation"). Do not add "related to" clauses unless explicitly stated in the audio.
+State the main concern, problem, or issue identified during the handover. Keep it extremely brief (e.g., "Risk for infection"). Do not add "related to" clauses unless explicitly stated.
 
 ## Data
-- Provide objective and subjective assessment findings only.
-- Group the data logically (e.g. Assessment Findings, Vital Signs).
-- Do NOT include ongoing treatments, therapies, or interventions (like IV fluids, oxygen, positioning) here.
+MUST split into **Subjective** and **Objective** as clearly separated subheadings.
+
+**Subjective**
+- List patient direct quotes, followed by ", as verbalized by the patient".
+- If available, label structured subfields (for example, **Pain Score**, **Symptom**).
+- If no subjective information, write: "Not mentioned in handover."
+
+**Objective**
+- Each line should follow this pattern: **Label**: value (e.g., **Patient**: PASCO, 8 years old, Male)
+- Bold all labels, including: **Patient**, **Room**, **Attending Physician**, **Chief Complaint**, **Diagnosis**, **CBC results** and all CBC subfields, **Vital Signs**, and any other key findings.
+- Indent CBC and other grouped results as a bulleted sub-list under their label (e.g.,
+  - **CBC results:**
+    - **Hgb**: 125 [UNCLEAR: unit]
+    - **Hct**: 0.42)
+- If no objective information, write: "Not mentioned in handover."
+
+Do NOT include ongoing treatments, therapies, or interventions here.
 
 ## Action
-- Outline immediate or future nursing interventions, medications administered, treatments provided, or tasks performed.
-- Include existing therapies and devices (e.g., "Oxygen at 2 L/min via nasal cannula", "IV fluids running").
-- Include any instructions given for ongoing care (e.g., "Assess properly", "Monitor oxygen saturation", "Keep patient comfortable").
+_Brief Explanation: This section documents all immediate and planned nursing actions, treatments, or interventions given or recommended for the patient._
+- Use bullet points.
+- User-provided content remains primary. If no actions, write: "Not mentioned in handover."
 
 ## Response
-- Document the patient's outcome or response to the interventions (e.g., "Patient maintained oxygen saturation at 92%", "Patient reports mild chest discomfort persists").
-- Do NOT put instructions or actions in this section. If no patient response is explicitly described in the audio, write exactly: "Not mentioned in handover."`
+- List patient's response/outcomes to interventions as bullet points.
+- If no patient response is explicitly described, write exactly: "Not mentioned in handover."`
 };

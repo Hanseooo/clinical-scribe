@@ -67,7 +67,7 @@ describe('inputAdapters', () => {
         })
         .mockResolvedValueOnce({
           ok: true,
-          json: () => Promise.resolve({ uri: 'files/abc123' }),
+          json: () => Promise.resolve({ file: { uri: 'files/abc123' } }),
         })
 
       const req: GenerateRequest = {
@@ -107,7 +107,7 @@ describe('inputAdapters', () => {
         })
         .mockResolvedValueOnce({
           ok: true,
-          json: () => Promise.resolve({ uri: 'files/test123' }),
+          json: () => Promise.resolve({ file: { uri: 'files/test123' } }),
         })
 
       const result = await uploadToGeminiFileApi('dGVzdCBhdWRpbw==')

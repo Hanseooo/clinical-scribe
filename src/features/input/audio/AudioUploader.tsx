@@ -18,7 +18,7 @@ const ACCEPTED_TYPES = [
 const MAX_SIZE = 50 * 1024 * 1024 // 50MB
 
 interface AudioUploaderProps {
-  onSubmit: (base64: string) => void
+  onSubmit: (blob: Blob, base64: string) => void
   isLoading: boolean
   templateLabel: string
 }
@@ -102,7 +102,7 @@ export function AudioUploader({ onSubmit, isLoading, templateLabel }: AudioUploa
       const base64 = await convertToWavBase64(blob, (message) => {
         setConvertStatus(message)
       })
-      onSubmit(base64)
+      onSubmit(blob, base64)
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Unknown error'
       setError(`Failed to convert audio: ${message}`)
@@ -211,7 +211,17 @@ export function AudioUploader({ onSubmit, isLoading, templateLabel }: AudioUploa
             disabled={isConverting || isLoading}
             className="w-full"
           >
-            {isConverting ? convertStatus || 'Converting…' : isLoading ? 'Generating…' : `Generate ${templateLabel} ▶`}
+            {isConverting || isLoading ? (
+              <>
+                <svg className="mr-2 h-4 w-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                </svg>
+                {isConverting ? convertStatus || 'Converting…' : 'Generating…'}
+              </>
+            ) : (
+              `Generate ${templateLabel} ▶`
+            )}
           </Button>
         </div>
       )}

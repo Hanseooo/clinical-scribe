@@ -5,7 +5,7 @@ import { AudioRecorder } from './AudioRecorder'
 import { AudioUploader } from './AudioUploader'
 
 interface AudioPanelProps {
-  onSubmit: (base64: string) => void
+  onSubmit: (blob: Blob, base64: string) => void
   isLoading: boolean
   templateLabel: string
 }

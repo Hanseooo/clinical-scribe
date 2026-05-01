@@ -1,8 +1,6 @@
 import '@testing-library/jest-dom'
+import { server } from './server'
 
-// MSW and other test initialisation can be added here
-// Example (optional):
-// import { server } from './mocks/server'
-// beforeAll(() => server.listen())
-// afterEach(() => server.resetHandlers())
-// afterAll(() => server.close())
+beforeAll(() => server.listen())
+afterEach(() => server.resetHandlers())
+afterAll(() => server.close())

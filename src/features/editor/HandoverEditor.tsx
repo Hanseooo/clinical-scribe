@@ -1,11 +1,20 @@
 'use client'
 
-import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import { SafetyHighlighter } from './SafetyHighlighter'
+import { TiptapEditor } from './TiptapEditor'
 import type { TemplateId } from '@/types'
 
-const MDEditor = dynamic(() => import('@uiw/react-md-editor'), { ssr: false })
+const TIPS: Partial<Record<TemplateId, { title: string; content: React.ReactNode }>> = {
+  fdar: {
+    title: 'Structure Tip',
+    content: (
+      <>
+        DATA must be split into <strong>Subjective</strong> (direct patient quote; <em>as verbalized by the patient</em>) and <strong>Objective</strong> (all clinical findings). ACTION and RESPONSE should be clear bullet lists.
+      </>
+    ),
+  },
+}
 
 interface HandoverEditorProps {
   value: string
@@ -16,7 +25,15 @@ interface HandoverEditorProps {
 export function HandoverEditor({ value, onChange, template }: HandoverEditorProps) {
   const [activeTab, setActiveTab] = useState<'edit' | 'preview'>('preview')
   const [tipDismissed, setTipDismissed] = useState(false)
-  const showTip = template === 'fdar' && !tipDismissed
+  const [showSource, setShowSource] = useState(false)
+  const tip = template ? TIPS[template] : undefined
+  const showTip = tip && !tipDismissed
+
+  const [prevTemplate, setPrevTemplate] = useState(template)
+  if (template !== prevTemplate) {
+    setPrevTemplate(template)
+    setTipDismissed(false)
+  }
 
   return (
     <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
@@ -24,10 +41,8 @@ export function HandoverEditor({ value, onChange, template }: HandoverEditorProp
         <div className="m-4 rounded-lg border border-teal-200 bg-teal-50 p-3">
           <div className="flex items-start justify-between gap-2">
             <div className="text-sm text-teal-800">
-              <strong className="font-semibold">Structure Tip</strong>
-              <p className="mt-1">
-                DATA must be split into <strong>Subjective</strong> (direct patient quote; <em>as verbalized by the patient</em>) and <strong>Objective</strong> (all clinical findings). ACTION and RESPONSE should be clear bullet lists.
-              </p>
+              <strong className="font-semibold">{tip.title}</strong>
+              <p className="mt-1">{tip.content}</p>
             </div>
             <button
               type="button"
@@ -69,17 +84,27 @@ export function HandoverEditor({ value, onChange, template }: HandoverEditorProp
 
       <div className="p-4">
         {activeTab === 'edit' ? (
-          <div data-color-mode="light">
-            <MDEditor
-              value={value}
-              onChange={(v) => onChange(v ?? '')}
-              height={400}
-              preview="edit"
-              hideToolbar={false}
-            />
+          <div>
+            {showSource ? (
+              <textarea
+                readOnly
+                value={value}
+                className="w-full h-[400px] font-mono text-sm p-4 border rounded bg-muted"
+              />
+            ) : (
+              <TiptapEditor value={value} onChange={onChange} />
+            )}
+            <button
+              type="button"
+              onClick={() => setShowSource(!showSource)}
+              className="text-xs text-muted-foreground hover:text-foreground mt-2"
+              aria-pressed={showSource}
+            >
+              {showSource ? 'Back to Editor' : 'View Source'}
+            </button>
           </div>
         ) : (
-          <div className="prose prose-sm max-w-none">
+          <div className="prose prose-sm max-w-none [&_ul]:list-disc [&_ol]:list-decimal [&_ul]:pl-5 [&_ol]:pl-5">
             <SafetyHighlighter markdown={value} />
           </div>
         )}

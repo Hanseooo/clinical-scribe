@@ -27,7 +27,7 @@ A web application that converts voice recordings or typed/pasted text of clinica
 | AI Orchestration | LangChain.js | Familiar to dev, clean chain abstraction |
 | AI Model | Gemini 2.5 Flash (AI Studio) | Free tier, native audio + text input |
 | UI Components | shadcn/ui + Tailwind CSS | Headless, composable, accessible |
-| Markdown Editor | `@uiw/react-md-editor` | Tab-based edit/preview, markdown-native |
+| Markdown Editor | Tiptap v3 | WYSIWYG rich-text editing with Markdown as source of truth |
 | PDF Export | Browser `window.print()` + print CSS | Zero dependencies, reliable |
 | MD Export | Native `Blob` download | No library needed |
 | Audio (client) | Web Audio API + MediaRecorder | In-browser recording |

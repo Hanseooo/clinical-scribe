@@ -8,7 +8,7 @@ import { TEMPLATES } from '@/lib/templates'
 
 interface InputPanelProps {
   onTextSubmit: (text: string) => void
-  onAudioSubmit: (base64: string) => void
+  onAudioSubmit: (blob: Blob, base64: string) => void
   isLoading: boolean
   template: TemplateId
 }

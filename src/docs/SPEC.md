@@ -203,7 +203,7 @@ Component: `features/source-viewer/SourceViewer.tsx`
 
 ### 4.6 Handover Editor
 
-- Library: `@uiw/react-md-editor`
+- Library: Tiptap v3 (`@tiptap/react`, `@tiptap/starter-kit`, `@tiptap/markdown`)
 - Tabs: **Edit** | **Preview** (default: Preview)
 - Edit tab: full markdown editor toolbar + raw content
 - Preview tab: rendered HTML + safety highlights applied via `SafetyHighlighter`

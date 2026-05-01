@@ -54,7 +54,7 @@ features/               ← Self-contained feature modules. No cross-feature imp
     SourceViewer.tsx    ← Collapsible. Label = "Transcript" or "Source Text" by modality.
     useSourceLabel.ts
   editor/
-    HandoverEditor.tsx  ← @uiw/react-md-editor wrapper, Edit|Preview tabs
+    HandoverEditor.tsx  ← Tiptap v3 wrapper, Edit|Preview tabs
     SafetyHighlighter.tsx ← Custom react-markdown renderer with <mark> injection
     highlighter.ts      ← Applies lib/safety/patterns to rendered text
   export/

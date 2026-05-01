@@ -1,6 +1,7 @@
 'use client'
 
 import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 import { createElement, type ReactElement, type ReactNode } from 'react'
 import { highlightText } from './highlighter'
 
@@ -88,6 +89,7 @@ function SectionHeading({ level, children }: { level: number; children?: ReactNo
 export function SafetyHighlighter({ markdown }: SafetyHighlighterProps) {
   return (
     <ReactMarkdown
+      remarkPlugins={[remarkGfm]}
       components={{
         h1: ({ children }) => createElement(SectionHeading, { level: 1 }, children),
         h2: ({ children }) => createElement(SectionHeading, { level: 2 }, children),

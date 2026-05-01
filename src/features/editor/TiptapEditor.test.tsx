@@ -31,7 +31,7 @@ describe('TiptapEditor', () => {
     const editor = await screen.findByRole('textbox');
     await userEvent.type(editor, 'Hello world');
     await waitFor(() => {
-      expect(handleChange).toHaveBeenCalled();
-    });
+      expect(handleChange).toHaveBeenCalledWith('\n\nHello world');
+    }, { timeout: 1000 });
   });
 });

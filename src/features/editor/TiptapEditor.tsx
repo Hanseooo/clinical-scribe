@@ -3,15 +3,23 @@
 import { useEditor, EditorContent, EditorContext } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import { Markdown } from '@tiptap/markdown';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { TiptapToolbar } from './TiptapToolbar';
 
-interface TiptapEditorProps {
+export interface TiptapEditorProps {
   value: string;
   onChange: (markdown: string) => void;
 }
 
 export function TiptapEditor({ value, onChange }: TiptapEditorProps) {
+  const onChangeRef = useRef(onChange);
+
+  useEffect(() => {
+    onChangeRef.current = onChange;
+  }, [onChange]);
+
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const editor = useEditor({
     extensions: [StarterKit, Markdown],
     content: value,
@@ -23,14 +31,28 @@ export function TiptapEditor({ value, onChange }: TiptapEditorProps) {
       },
     },
     onUpdate: ({ editor }) => {
-      const markdown = editor.getMarkdown();
-      onChange(markdown);
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+      timeoutRef.current = setTimeout(() => {
+        const markdown = editor.getMarkdown();
+        onChangeRef.current(markdown);
+      }, 300);
     },
   });
 
+  // Cleanup timeout on unmount
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
   // Sync external value changes (e.g., after AI generation)
   useEffect(() => {
-    if (editor && editor.getMarkdown() !== value) {
+    if (editor && !editor.isFocused && editor.getMarkdown() !== value) {
       editor.commands.setContent(value, { contentType: 'markdown' });
     }
   }, [editor, value]);

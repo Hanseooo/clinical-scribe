@@ -5,18 +5,25 @@ import StarterKit from '@tiptap/starter-kit';
 import { Markdown } from '@tiptap/markdown';
 import { useEffect, useRef } from 'react';
 import { TiptapToolbar } from './TiptapToolbar';
+import { checkRoundTrip, RoundTripResult } from './roundTripGuard';
 
 export interface TiptapEditorProps {
   value: string;
   onChange: (markdown: string) => void;
+  onRoundTripFail?: (result: RoundTripResult) => void;
 }
 
-export function TiptapEditor({ value, onChange }: TiptapEditorProps) {
+export function TiptapEditor({ value, onChange, onRoundTripFail }: TiptapEditorProps) {
   const onChangeRef = useRef(onChange);
+  const onRoundTripFailRef = useRef(onRoundTripFail);
 
   useEffect(() => {
     onChangeRef.current = onChange;
   }, [onChange]);
+
+  useEffect(() => {
+    onRoundTripFailRef.current = onRoundTripFail;
+  }, [onRoundTripFail]);
 
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -36,6 +43,11 @@ export function TiptapEditor({ value, onChange }: TiptapEditorProps) {
       }
       timeoutRef.current = setTimeout(() => {
         const markdown = editor.getMarkdown();
+        const result = checkRoundTrip(value, markdown);
+        if (!result.ok) {
+          console.warn('[TiptapEditor] Round-trip divergence detected', result);
+          onRoundTripFailRef.current?.(result);
+        }
         onChangeRef.current(markdown);
       }, 300);
     },

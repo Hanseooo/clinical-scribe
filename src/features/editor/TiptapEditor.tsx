@@ -34,13 +34,22 @@ export function TiptapEditor({ value, onChange, onRoundTripFail }: TiptapEditorP
 
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  const hasSetInitialContent = useRef(false);
+
   const editor = useEditor({
-    extensions: [StarterKit, Markdown],
-    content: value,
+    extensions: [
+      StarterKit.configure({
+        heading: { levels: [1, 2, 3] },
+        bulletList: {},
+        orderedList: {},
+        listItem: {},
+      }),
+      Markdown,
+    ],
     immediatelyRender: false,
     editorProps: {
       attributes: {
-        class: 'prose prose-sm max-w-none focus:outline-none min-h-[200px] p-4',
+        class: 'prose prose-sm max-w-none focus:outline-none min-h-[200px] p-4 [&_ul]:list-disc [&_ol]:list-decimal',
         role: 'textbox',
       },
     },
@@ -69,9 +78,15 @@ export function TiptapEditor({ value, onChange, onRoundTripFail }: TiptapEditorP
     };
   }, []);
 
-  // Sync external value changes (e.g., after AI generation)
+  // Set initial content and sync external value changes (e.g., after AI generation)
   useEffect(() => {
-    if (editor && !editor.isFocused && editor.getMarkdown() !== value) {
+    if (!editor) return;
+    if (!hasSetInitialContent.current && value) {
+      editor.commands.setContent(value, { contentType: 'markdown' });
+      hasSetInitialContent.current = true;
+      return;
+    }
+    if (!editor.isFocused && editor.getMarkdown() !== value) {
       editor.commands.setContent(value, { contentType: 'markdown' });
     }
   }, [editor, value]);

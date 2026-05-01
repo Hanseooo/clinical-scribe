@@ -28,8 +28,11 @@ async function geminiApiUrl(path: string): Promise<string> {
   return `${baseUrl}/${path}?key=${apiKey}`
 }
 
-export async function uploadToGeminiFileApi(audioBase64: string): Promise<string> {
-  const binaryData = Buffer.from(audioBase64, 'base64')
+export async function uploadToGeminiFileApi(
+  data: string | Buffer,
+  mimeType: string = 'audio/wav',
+): Promise<string> {
+  const binaryData = typeof data === 'string' ? Buffer.from(data, 'base64') : data
 
   const uploadUrl = await geminiApiUrl('upload/v1beta/files')
 
@@ -39,13 +42,13 @@ export async function uploadToGeminiFileApi(audioBase64: string): Promise<string
       'X-Goog-Upload-Protocol': 'resumable',
       'X-Goog-Upload-Command': 'start',
       'X-Goog-Upload-Header-Content-Length': String(binaryData.length),
-      'X-Goog-Upload-Header-Content-Type': 'audio/wav',
+      'X-Goog-Upload-Header-Content-Type': mimeType,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       file: {
         displayName: 'clinical-recording.wav',
-        mimeType: 'audio/wav',
+        mimeType: mimeType,
       },
     }),
   })
@@ -67,7 +70,7 @@ export async function uploadToGeminiFileApi(audioBase64: string): Promise<string
        'X-Goog-Upload-Offset': '0',
        'Content-Type': 'application/octet-stream',
      },
-    body: binaryData,
+     body: binaryData.buffer as ArrayBuffer,
   })
 
    if (!uploadResponse.ok) {

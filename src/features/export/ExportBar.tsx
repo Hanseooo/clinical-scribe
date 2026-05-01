@@ -71,10 +71,22 @@ export function ExportBar({ content, source, modality, model, disabled, onExport
           onClick={handleExportPdf}
           disabled={disabled || isPdfGenerating}
         >
-          <svg className="mr-1.5 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a.75.75 0 01-.745.827H6.856a.75.75 0 01-.745-.827L6.34 18m11.32 0H6.34m0 0L5.12 13.829m1.22 4.171h11.32M9 3.75v1.5a1.5 1.5 0 001.5 1.5h3A1.5 1.5 0 0015 5.25V3.75m-6 0h6" />
-          </svg>
-          {isPdfGenerating ? 'Generating…' : 'PDF'}
+          {isPdfGenerating ? (
+            <>
+              <svg className="mr-1.5 h-4 w-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+              </svg>
+              Generating…
+            </>
+          ) : (
+            <>
+              <svg className="mr-1.5 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0110.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0l.229 2.523a.75.75 0 01-.745.827H6.856a.75.75 0 01-.745-.827L6.34 18m11.32 0H6.34m0 0L5.12 13.829m1.22 4.171h11.32M9 3.75v1.5a1.5 1.5 0 001.5 1.5h3A1.5 1.5 0 0015 5.25V3.75m-6 0h6" />
+              </svg>
+              PDF
+            </>
+          )}
         </Button>
       </div>
     </div>

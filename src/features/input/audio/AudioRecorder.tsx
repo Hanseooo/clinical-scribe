@@ -7,7 +7,7 @@ import { convertToWavBase64 } from './converter'
 import { Send } from 'lucide-react'
 
 interface AudioRecorderProps {
-  onSubmit: (base64: string) => void
+  onSubmit: (blob: Blob, base64: string) => void
   isLoading: boolean
   templateLabel: string
 }
@@ -51,7 +51,7 @@ export function AudioRecorder({ onSubmit, isLoading, templateLabel }: AudioRecor
       const base64 = await convertToWavBase64(audioBlob, (message) => {
         setConvertStatus(message)
       })
-      onSubmit(base64)
+      onSubmit(audioBlob, base64)
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Unknown error'
       setConvertError(`Failed to convert audio: ${message}`)
@@ -161,12 +161,17 @@ export function AudioRecorder({ onSubmit, isLoading, templateLabel }: AudioRecor
                 onClick={handleSubmit}
                 disabled={isConverting || isLoading}
               >
-{isConverting
-                  ? convertStatus || 'Converting…'
-                  : isLoading
-                  ? 'Generating…'
-                  : <><span>Generate {templateLabel}</span><Send className="ml-2 h-4 w-4 inline" aria-label="Submit" /></>}
-
+                {isConverting || isLoading ? (
+                  <>
+                    <svg className="mr-2 h-4 w-4 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                    </svg>
+                    {isConverting ? convertStatus || 'Converting…' : 'Generating…'}
+                  </>
+                ) : (
+                  <><span>Generate {templateLabel}</span><Send className="ml-2 h-4 w-4 inline" aria-label="Submit" /></>
+                )}
               </Button>
             </div>
           </>

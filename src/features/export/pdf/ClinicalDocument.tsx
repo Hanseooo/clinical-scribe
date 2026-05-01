@@ -30,12 +30,6 @@ export function ClinicalDocumentPdf({ handover, source, modality, model, date }:
           style={styles.footer}
         />
 
-        {/* Document title */}
-        <Text style={styles.title}>Clinical Handover Document</Text>
-        <Text style={styles.meta}>
-          Model: {model} | {modality === 'text' ? 'Text notes' : 'Audio transcription'} | {date}
-        </Text>
-
         {/* Source/Transcript section */}
         <Text style={styles.h2}>
           {modality.startsWith('audio') ? 'Transcript' : 'Source Text'}

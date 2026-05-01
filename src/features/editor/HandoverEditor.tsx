@@ -104,7 +104,7 @@ export function HandoverEditor({ value, onChange, template }: HandoverEditorProp
             </button>
           </div>
         ) : (
-          <div className="prose prose-sm max-w-none">
+          <div className="prose prose-sm max-w-none [&_ul]:list-disc [&_ol]:list-decimal [&_ul]:pl-5 [&_ol]:pl-5">
             <SafetyHighlighter markdown={value} />
           </div>
         )}

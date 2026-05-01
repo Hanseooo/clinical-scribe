@@ -191,7 +191,7 @@ How it works — why FDAR is default
       <Separator />
 
       {/* Safety Disclaimer */}
-      <section className="bg-white">
+      {/* <section className="bg-white">
         <div className="mx-auto max-w-6xl px-4 py-16 sm:py-20">
           <div className="rounded-xl border border-amber-200 bg-amber-50/50 p-6 sm:p-8">
             <div className="flex gap-4">
@@ -225,7 +225,7 @@ How it works — why FDAR is default
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* CTA */}
       <section className="bg-stone-50">

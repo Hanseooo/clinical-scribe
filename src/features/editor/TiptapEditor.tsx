@@ -13,9 +13,16 @@ export interface TiptapEditorProps {
   onRoundTripFail?: (result: RoundTripResult) => void;
 }
 
+const UPDATE_DEBOUNCE_MS = 300;
+
 export function TiptapEditor({ value, onChange, onRoundTripFail }: TiptapEditorProps) {
+  const valueRef = useRef(value);
   const onChangeRef = useRef(onChange);
   const onRoundTripFailRef = useRef(onRoundTripFail);
+
+  useEffect(() => {
+    valueRef.current = value;
+  }, [value]);
 
   useEffect(() => {
     onChangeRef.current = onChange;
@@ -43,13 +50,13 @@ export function TiptapEditor({ value, onChange, onRoundTripFail }: TiptapEditorP
       }
       timeoutRef.current = setTimeout(() => {
         const markdown = editor.getMarkdown();
-        const result = checkRoundTrip(value, markdown);
+        const result = checkRoundTrip(valueRef.current, markdown);
         if (!result.ok) {
           console.warn('[TiptapEditor] Round-trip divergence detected', result);
           onRoundTripFailRef.current?.(result);
         }
         onChangeRef.current(markdown);
-      }, 300);
+      }, UPDATE_DEBOUNCE_MS);
     },
   });
 

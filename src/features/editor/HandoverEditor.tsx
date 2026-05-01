@@ -1,11 +1,9 @@
 'use client'
 
-import dynamic from 'next/dynamic'
 import { useState } from 'react'
 import { SafetyHighlighter } from './SafetyHighlighter'
+import { TiptapEditor } from './TiptapEditor'
 import type { TemplateId } from '@/types'
-
-const MDEditor = dynamic(() => import('@uiw/react-md-editor'), { ssr: false })
 
 interface HandoverEditorProps {
   value: string
@@ -16,6 +14,7 @@ interface HandoverEditorProps {
 export function HandoverEditor({ value, onChange, template }: HandoverEditorProps) {
   const [activeTab, setActiveTab] = useState<'edit' | 'preview'>('preview')
   const [tipDismissed, setTipDismissed] = useState(false)
+  const [showSource, setShowSource] = useState(false)
   const showTip = template === 'fdar' && !tipDismissed
 
   return (
@@ -69,14 +68,23 @@ export function HandoverEditor({ value, onChange, template }: HandoverEditorProp
 
       <div className="p-4">
         {activeTab === 'edit' ? (
-          <div data-color-mode="light">
-            <MDEditor
-              value={value}
-              onChange={(v) => onChange(v ?? '')}
-              height={400}
-              preview="edit"
-              hideToolbar={false}
-            />
+          <div>
+            {showSource ? (
+              <textarea
+                readOnly
+                value={value}
+                className="w-full h-[400px] font-mono text-sm p-4 border rounded bg-muted"
+              />
+            ) : (
+              <TiptapEditor value={value} onChange={onChange} />
+            )}
+            <button
+              type="button"
+              onClick={() => setShowSource(!showSource)}
+              className="text-xs text-muted-foreground hover:text-foreground mt-2"
+            >
+              {showSource ? 'Back to Editor' : 'View Source'}
+            </button>
           </div>
         ) : (
           <div className="prose prose-sm max-w-none">

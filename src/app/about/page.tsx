@@ -8,7 +8,7 @@ const techStack = [
   { layer: 'AI Orchestration', tool: 'LangChain.js', detail: 'Clean chain abstraction, prompt templates' },
   { layer: 'UI', tool: 'shadcn/ui + Tailwind CSS', detail: 'Headless, composable, accessible' },
   { layer: 'Audio', tool: 'ffmpeg.wasm (Web Worker)', detail: 'Client-side conversion to 16kHz mono .wav' },
-  { layer: 'Editor', tool: '@uiw/react-md-editor', detail: 'Tab-based markdown edit/preview' },
+  { layer: 'Editor', tool: 'Tiptap v3', detail: 'WYSIWYG rich-text editing with Markdown as source of truth' },
   { layer: 'Export', tool: 'Browser print + Blob', detail: 'Zero-dependency PDF and Markdown export' },
 ]
 

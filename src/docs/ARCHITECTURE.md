@@ -151,7 +151,7 @@ To add **PDF upload** in v2: add `modality: 'pdf-upload'` to `InputModality`, ad
 // src/lib/langchain/handoverChain.ts
 
 const model = new ChatGoogleGenerativeAI({
-  model: 'gemini-2.5-flash',
+  model: 'gemini-2.5-flash-lite',
   apiKey: process.env.GEMINI_API_KEY,
 })
 

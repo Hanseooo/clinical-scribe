@@ -19,9 +19,10 @@ let cachedModel: ChatGoogleGenerativeAI | null = null
 function getModel(): ChatGoogleGenerativeAI {
   if (!cachedModel) {
     cachedModel = new ChatGoogleGenerativeAI({
-      model: 'gemini-2.5-flash',
+      model: "gemini-2.5-flash-lite",
       apiKey: process.env.GEMINI_API_KEY,
-    })
+      maxRetries: 0,
+    });
   }
   return cachedModel
 }

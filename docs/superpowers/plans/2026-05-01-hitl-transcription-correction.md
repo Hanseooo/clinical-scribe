@@ -1,4 +1,4 @@
-# HITL Transcription Correction Implementation Plan
+  # HITL Transcription Correction Implementation Plan
 
 > **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
 
@@ -99,7 +99,7 @@ import { HumanMessage, SystemMessage } from '@langchain/core/messages';
 import { DraftTranscript, TranscriptSegment } from '@/features/hitl/types';
 
 const model = new ChatGoogleGenerativeAI({
-  model: 'gemini-2.5-flash',
+  model: 'gemini-2.5-flash-lite',
   temperature: 0,
 });
 
@@ -237,7 +237,7 @@ export async function POST(request: NextRequest) {
 
     const response: TranscribeResponse = {
       draftTranscript,
-      model: 'gemini-2.5-flash',
+      model: 'gemini-2.5-flash-lite',
     };
 
     return NextResponse.json(response);
@@ -1011,7 +1011,7 @@ export const handlers = [
           { id: 'seg_002', text: 'metoprolol', confidence: 0.62, alternatives: ['metformin', 'metroprolol'], startTime: 2.5, endTime: 3.8 },
         ],
       },
-      model: 'gemini-2.5-flash',
+      model: 'gemini-2.5-flash-lite',
     });
   }),
 ];

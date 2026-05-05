@@ -61,7 +61,7 @@ export async function POST(request: Request) {
       source: result.source,
       handover: result.handover,
       modality: chainInput.modality,
-      model: 'gemini-2.5-flash',
+      model: 'gemini-2.5-flash-lite',
     })
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error occurred';

@@ -25,11 +25,11 @@ describe('useGeneration', () => {
 
   it('sets isLoading=true during fetch and false after success', async () => {
     const successResponse: GenerateSuccessResponse = {
-      source: 'test source',
-      handover: '# Test Handover',
-      modality: 'text',
-      model: 'gemini-2.5-flash',
-    }
+      source: "test source",
+      handover: "# Test Handover",
+      modality: "text",
+      model: "gemini-2.5-flash-lite",
+    };
 
     let resolveFetch: (value: Response) => void
     const fetchPromise = new Promise<Response>((resolve) => {

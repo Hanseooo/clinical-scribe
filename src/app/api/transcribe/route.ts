@@ -27,7 +27,7 @@ export async function POST(request: Request) {
     return NextResponse.json({
       draftTranscript,
       model: 'gemini-2.5-flash',
-    })
+    });
   } catch (error) {
     const message = error instanceof Error ? error.message : 'Unknown error occurred'
 

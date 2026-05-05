@@ -58,7 +58,7 @@
   - Extract payload (text or audio base64).
   - Call `adaptRequest`.
   - Switch on `modality` inside the route: if `text`, await `generateFromText`; if `audio-*`, await `generateFromAudio`.
-  - Return `{ source, handover, modality, model: 'gemini-2.5-flash' }`.
+  - Return `{ source, handover, modality, model: 'gemini-2.5-flash-lite' }`.
 
 - [ ] **Step 3: Verify Test**
   - Run: `npx vitest run app/api/generate/route.test.ts`
